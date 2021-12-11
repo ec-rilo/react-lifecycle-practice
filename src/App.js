@@ -1,5 +1,29 @@
-function App() {
-  return <div className="App"></div>;
-}
+import React, { Component } from 'react';
+import ReactDom from 'react-dom';
+import Counter from './Counter';
 
-export default App;
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      mount: true,
+    };
+
+    this.mountCounter = () => this.setState({ mount: true });
+    this.unmountCounter = () => this.setState({ mount: false });
+  }
+  render() {
+    return (
+      <div>
+        <button onClick={this.mountCounter} disabled={this.state.mount}>
+          Mount Counter
+        </button>
+        <button onClick={this.unmountCounter} disabled={!this.state.mount}>
+          Unmount Counter
+        </button>
+        {this.state.mount ? <Counter /> : null}
+      </div>
+    );
+  }
+}
